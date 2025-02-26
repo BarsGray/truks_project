@@ -1,0 +1,103 @@
+###
+
+# @name auth
+POST https://identity-stage.alfaleasing.ru/connect/token HTTP/1.1
+content-type: application/x-www-form-urlencoded
+# partner-id: f82ceceb-ce83-4f32-b0cf-c4316c05a832
+
+client_id=c-ahvtrucks
+&client_secret=c5ada2bf-4859-ec39-4b3a-4a4fc7142ed5
+&grant_type=client_credentials
+&partner-id=f82ceceb-ce83-4f32-b0cf-c4316c05a832
+
+@token = {{auth.response.body.$.access_token}}
+# eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwNTFGQkY3NDFDMDkyMTA2MzgzQzhEODRCNjk0RjVCIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2ODk4NjA1NTQsImV4cCI6MTY4OTg2NDE1NCwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zdGFnZS5hbGZhbGVhc2luZy5ydSIsImF1ZCI6WyJsayIsImF6dXJlLXN0YWdlLXJlc291cmNlIiwiYWdlbnQtaW5mby1nZXQtYXBpIiwiYWdlbnQtbGstdWktYXBpIiwiY2xhaW1zLWFwaSIsImFnZW50LXJlZ2lzdHJhdGlvbi1hcGkiLCJub3RpZmljYXRpb24td29ya2VyIiwici1jbGFpbXMtc2FsZS1hcGkiLCJyLWNvcmUtbWFpbC1hcGkiLCJyLW9hcGktY2FsYy1zZXJ2aWNlIl0sImNsaWVudF9pZCI6ImMtYWh2dHJ1Y2tzIiwiaWF0IjoxNjg5ODYwNTU0LCJzY29wZSI6WyJvYXBpIl19.GLdpT5HRrBEzYUksr0y3P_3s8DJiROBM5YQQMAbQdIVeMssZy-wgV13wakGIsPIopDSjPe3dFP3Ercqu7kKo1vGOjT_77SDL9VaZ_62asIZBMc2Ll-gxjfzYUBhxd4grb4Prx4i9BzVP78J-kKCH71h9UTeKzLcUyJbW6yu1ieghKFLMLH3W8lMC-fuB3eRYQohIfL-rddFIruLeGFixNz-FXa-2J3gbBswpopSHLGNvDRM_ptQEZt-v4qeN3RtyQGU2Gu82yKbjyshqNHLRnte8QzPcTfRcEF6RvOI-Kx_06eBIl0RmbdRCuaG5IA610Z0H61P2Na472NNWpOArbg
+# eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwNTFGQkY3NDFDMDkyMTA2MzgzQzhEODRCNjk0RjVCIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2ODk4NjQzMDgsImV4cCI6MTY4OTg2NzkwOCwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zdGFnZS5hbGZhbGVhc2luZy5ydSIsImF1ZCI6WyJsayIsImF6dXJlLXN0YWdlLXJlc291cmNlIiwiYWdlbnQtaW5mby1nZXQtYXBpIiwiYWdlbnQtbGstdWktYXBpIiwiY2xhaW1zLWFwaSIsImFnZW50LXJlZ2lzdHJhdGlvbi1hcGkiLCJub3RpZmljYXRpb24td29ya2VyIiwici1jbGFpbXMtc2FsZS1hcGkiLCJyLWNvcmUtbWFpbC1hcGkiLCJyLW9hcGktY2FsYy1zZXJ2aWNlIl0sImNsaWVudF9pZCI6ImMtYWh2dHJ1Y2tzIiwiaWF0IjoxNjg5ODY0MzA4LCJzY29wZSI6WyJvYXBpIl19.HuRLn01lUHMUEeeHkTpq8cbaVrRWamFxW1xUdss-czlgB5fGv_MPMc_--rqO6jZ6TUjYhXa_6oodMiZ-EO7-Tr-QLKM8nW8VP382N1eLhDMA1n0GI2Fo6dqDsLnMGSejBSUEvUSi3d_3KYonxRj0m_Ul756-Bgs7DnfAQYuJaMkvR_HfZzxq31AES4UojN37d4aBWL_v-fBkVD5PP778Dvc03SAd19Y3QAhZ6gvzqQcNpEvnHlLDlawl0d_qi-xtrM2-KhiNzkdUr3TtgfbQnWu4eKoFiwcf3M4YEMZRnEUkViwgUze-H8Hd-bLbMEjcPbCvL0pEMxC7S3XJIDTAzQ
+###
+
+# @name calc
+POST https://oapi-calc-service-stage.alfaleasing.ru/alfa-leasing-oapi-calc-service/v1/partner/calcs HTTP/1.1
+Accept: application/json
+Partner-id: f82ceceb-ce83-4f32-b0cf-c4316c05a832
+Authorization: Bearer {{auth.response.body.$.access_token}}
+Content-Type: application/json
+
+{
+  "term": 36,
+  "price": 5000000,
+  "advance": {
+    "percent": 15,
+    "amount": 750000
+  },
+  "agent_commission": 2,
+  "redemption_amount": 1200
+}
+
+###
+#"2020-07-13T07:21:08+03:00",
+# @name request
+POST https://claims-sale-stage.alfaleasing.ru/alfa-leasing-claims-sale-api/v1/requests HTTP/1.1
+Accept: application/json
+Partner-id: f82ceceb-ce83-4f32-b0cf-c4316c05a832
+Authorization: Bearer {{auth.response.body.$.access_token}}
+Content-Type: application/json
+
+{
+  "comment": "gfuigfeui",
+  "timestamp": "2023-07-21T12:31:59+03:00",
+
+  "action": "create",
+  "model": "OAPI_CLAIMS_MODEL",
+  "data": {
+    "creation_method": "MANUAL",
+    "creator_type": "AGENT",
+    "header": {
+      "type_of_contractor": "LEGAL",
+      "inn": "3664069397"
+    },
+    "contact_person": {
+      "first_name": "Александр",
+      "middle_name": "Александрович",
+      "last_name": "Александров",
+      "phone": "79175653832",
+      "email": "hazg@mail.ru"
+    },
+    "non_calculations": [{
+      "name": "model 1",
+      "comment": "test comment"
+    },
+    {
+      "name": "model 2",
+      "comment": "test comment 1"
+    }
+    ],
+    "creation_method": "MANUAL",
+    "creator_type": "CONTRACTOR",
+    "source": "OAPI"
+  }
+}
+
+
+# {
+#     "comment": "43253",
+#     "timestamp": "2023-07-21T08:14:45.900Z",
+#     "action": "create",
+#     "data": {
+#       "header": {
+#         "inn": "1234567890"
+#       },
+#       "contact_person": {
+#         "first_name": "Aleksandr",
+#         "middle_name": "Aleksandrovich",
+#         "last_name": "Aleksandrov",
+#         "phone": "8 (917) 565-38-32",
+#         "email": "a0133133@yandex.ru"
+#       },
+#       "non_calculations": {
+#         "comment": "Стоимость лизинга: 12630300\nАванс: 2526060\nСрок лизинга: 36,\nПредмет: 1\n"
+#       },
+#       "creation_method": "MANUAL",
+#       "creator_type": "CONTRACTOR",
+#       "source": "OAPI"
+#     }
+# }

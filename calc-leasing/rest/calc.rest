@@ -1,0 +1,18 @@
+# POST https://oapi-calc-service-stage.alfaleasing.ru/v1/partner/calcs HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+# # partner-id: f82ceceb-ce83-4f32-b0cf-c4316c05a832
+
+# client_id=c-ahvtrucks
+# &client_secret=c5ada2bf-4859-ec39-4b3a-4a4fc7142ed5
+# &grant_type=client_credentials
+# &partner-id=f82ceceb-ce83-4f32-b0cf-c4316c05a832
+
+
+POST https://claims-sale-stage.alfaleasing.ru/alfa-leasing-claims-sale-api/v1/partner/calcs
+partner-id: 'f82ceceb-ce83-4f32-b0cf-c4316c05a832'
+
+{
+  "term": 36,
+  "price": "1000",
+  "advance": "12",
+}
